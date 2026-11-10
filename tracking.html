@@ -1,0 +1,680 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101520">
+    <meta name="description" content="Explore the KV Freight Group demo tracking interface.">
+
+    <title>Track Shipment — KV Freight Group</title>
+
+    <link rel="stylesheet" href="css/inner.css">
+    <link rel="stylesheet" href="css/motion.css">
+    <link rel="stylesheet" href="css/mobile.css">
+
+    <script src="js/mobile.js" defer></script>
+
+    <style>
+        .tracking-hero {
+            min-height: min(820px, calc(92svh - var(--header-h)));
+            background: #121d33;
+        }
+
+        .tracking-hero .mx-hero__image {
+            object-position: center 53%;
+        }
+
+        .tracking-hero .mx-hero__shade {
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(5,10,24,.91) 0%,
+                    rgba(5,10,24,.53) 48%,
+                    rgba(5,10,24,.24) 100%
+                ),
+                linear-gradient(
+                    0deg,
+                    rgba(3,8,21,.82),
+                    transparent 65%
+                );
+        }
+
+        .tracking-hero .mx-hero__content {
+            padding-block:
+                clamp(80px,10vw,170px)
+                clamp(65px,8vw,110px);
+        }
+
+        .tracking-hero .mx-hero__title {
+            max-width: 1150px;
+            font-size: clamp(72px,10.5vw,174px);
+            margin: 28px 0;
+        }
+
+        .tracking-hero .mx-hero__title span {
+            color: #9ab6ff;
+        }
+
+        .tracking-hero__footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1300px;
+        }
+
+        .tracking-hero__footer p {
+            max-width: 530px;
+            color: rgba(255,255,255,.83);
+            font-size: clamp(16px,1.5vw,22px);
+            line-height: 1.55;
+        }
+
+        .tracking-hero__system {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid rgba(255,255,255,.44);
+            padding: 17px 20px;
+            background: rgba(10,18,36,.48);
+            backdrop-filter: blur(15px);
+        }
+
+        .tracking-hero__system strong,
+        .tracking-hero__system small {
+            display: block;
+            font-family: monospace;
+            letter-spacing: .1em;
+        }
+
+        .tracking-hero__system strong {
+            font-size: 11px;
+        }
+
+        .tracking-hero__system small {
+            color: #cbd6f2;
+            font-size: 10px;
+            margin-top: 6px;
+        }
+
+        .tracking-signal {
+            width: 13px;
+            height: 13px;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background: #7da2ff;
+            box-shadow: 0 0 0 0 rgba(125,162,255,.55);
+            animation: tracking-pulse 2s infinite;
+        }
+
+        .tracking-section {
+            scroll-margin-top: 90px;
+        }
+
+        .tracking-section .section-top h2 {
+            font-size: clamp(58px,7.2vw,118px);
+        }
+
+        .tracking-section .section-top > p {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .tracking-section .panel {
+            border-top: 4px solid var(--blue);
+        }
+
+        .tracking-section .panel .eyebrow {
+            color: var(--blue);
+        }
+
+        .tracking-section .samples button {
+            border-radius: 30px;
+            padding: 11px 13px;
+            transition: background .2s, color .2s;
+        }
+
+        .tracking-section .track-result {
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    #203b82 0%,
+                    #111825 38%,
+                    #0e1119 100%
+                );
+        }
+
+        .tracking-section .empty-state span {
+            display: block;
+            font-size: 100px;
+            margin-bottom: 10px;
+        }
+
+        .tracking-stages {
+            display: grid;
+            grid-template-columns: repeat(3,minmax(0,1fr));
+            gap: 1px;
+            background: #353e53;
+            margin-top: 45px;
+            overflow: hidden;
+        }
+
+        .tracking-stages article {
+            min-height: 170px;
+            background: #151b28;
+            color: white;
+            padding: 25px;
+        }
+
+        .tracking-stages article > span {
+            color: #8eafff;
+            font: 700 11px monospace;
+            letter-spacing: .1em;
+        }
+
+        .tracking-stages article h3 {
+            font-size: 21px;
+            line-height: 1.2;
+            margin-top: 20px;
+        }
+
+        .tracking-stages article p {
+            color: #acb5c8;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        @keyframes tracking-pulse {
+            70% {
+                box-shadow: 0 0 0 12px rgba(125,162,255,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(125,162,255,0);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .tracking-hero {
+                min-height: 77svh;
+            }
+
+            .tracking-hero .mx-hero__title {
+                font-size: clamp(64px,12vw,100px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tracking-hero .mx-hero__title {
+                font-size: clamp(57px,12vw,80px);
+            }
+
+            .tracking-hero .mx-hero__content {
+                padding-top: 75px;
+                padding-bottom: 45px;
+            }
+
+            .tracking-stages {
+                grid-template-columns: 1fr;
+            }
+
+            .tracking-stages article {
+                min-height: 125px;
+            }
+
+            .tracking-hero .mx-hero__shade {
+                background:
+                    linear-gradient(
+                        0deg,
+                        rgba(4,9,22,.95),
+                        rgba(4,9,22,.35)
+                    );
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tracking-signal {
+                animation: none;
+            }
+        }
+    </style>
+
+    <script src="js/inner.js" defer></script>
+    <script src="js/motion.js" defer></script>
+</head>
+
+<body>
+
+    <header class="kv-header">
+
+        <a class="kv-logo"
+           href="index.html"
+           aria-label="KV Freight home">
+            KV<span>.</span>
+        </a>
+
+        <nav class="kv-header-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+            <a href="industries.html">Industries</a>
+            <a href="tracking.html" aria-current="page">Tracking</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <a class="btn" href="contact.html">
+            GET A QUOTE ↗
+        </a>
+
+        <details class="kv-mobile-menu">
+            <summary>MENU ☰</summary>
+
+            <nav class="kv-mobile-menu-panel"
+                 aria-label="Mobile navigation">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="industries.html">Industries</a>
+                <a href="tracking.html" aria-current="page">Tracking</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </details>
+
+    </header>
+
+    <main>
+
+        <section class="mx-hero tracking-hero"
+                 data-mx-hero
+                 aria-labelledby="tracking-title">
+
+            <img
+                class="mx-hero__image"
+                src="https://images.unsplash.com/photo-1494412519320-aa613dfb7738?auto=format&fit=crop&w=2000&q=85"
+                alt="Shipping containers at a large freight terminal"
+                fetchpriority="high"
+            >
+
+            <div class="mx-hero__shade"
+                 aria-hidden="true"></div>
+
+            <div class="wrap mx-hero__content">
+
+                <span class="mx-hero__label"
+                      data-mx-reveal>
+                    04 / SHIPMENT VISIBILITY
+                </span>
+
+                <h1 class="mx-hero__title"
+                    id="tracking-title"
+                    data-mx-reveal>
+                    TRACK<br>
+                    <span>EVERY MOVE.</span>
+                </h1>
+
+                <div class="tracking-hero__footer"
+                     data-mx-reveal>
+
+                    <p>
+                        From departure to destination.
+                        Explore a clear, interactive view
+                        of a freight journey.
+                    </p>
+
+                    <div class="tracking-hero__system">
+
+                        <i class="tracking-signal"
+                           aria-hidden="true"></i>
+
+                        <div>
+                            <strong>TRACKING INTERFACE</strong>
+                            <small>03 SAMPLE SHIPMENTS · DEMO</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a class="mx-scroll-hint"
+                   href="#track"
+                   style="margin-top:30px">
+                    TRY THE TRACKING DEMO <b>↓</b>
+                </a>
+
+            </div>
+
+        </section>
+
+        <div class="mx-ticker" aria-hidden="true">
+
+            <div class="mx-ticker__track">
+
+                <div class="mx-ticker__unit">
+                    ORIGIN <span>✳</span>
+                    IN TRANSIT <span>✳</span>
+                    DESTINATION <span>✳</span>
+                    TRACK THE JOURNEY <span>✳</span>
+                </div>
+
+                <div class="mx-ticker__unit">
+                    ORIGIN <span>✳</span>
+                    IN TRANSIT <span>✳</span>
+                    DESTINATION <span>✳</span>
+                    TRACK THE JOURNEY <span>✳</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <section class="section section-soft tracking-section"
+                 id="track">
+
+            <div class="wrap">
+
+                <div class="section-top"
+                     data-mx-reveal>
+
+                    <div>
+
+                        <span class="eyebrow blue">
+                            01 / DEMO TRACKING
+                        </span>
+
+                        <h2 class="display">
+                            WHERE IS<br>
+                            <span class="blue">YOUR CARGO?</span>
+                        </h2>
+
+                    </div>
+
+                    <p>
+                        Enter a demo reference to see
+                        a route, current status and
+                        recorded milestones.
+                    </p>
+
+                </div>
+
+                <div class="track-layout">
+
+                    <div class="panel"
+                         data-mx-reveal>
+
+                        <span class="eyebrow">
+                            SHIPMENT REFERENCE
+                        </span>
+
+                        <h2>
+                            FIND YOUR<br>
+                            SHIPMENT.
+                        </h2>
+
+                        <p>
+                            This interactive example uses
+                            fictional shipment records.
+                            No real cargo can be tracked here.
+                        </p>
+
+                        <form id="trackingForm">
+
+                            <div class="field">
+
+                                <label for="trackingId">
+                                    Tracking number
+                                </label>
+
+                                <input
+                                    id="trackingId"
+                                    name="trackingId"
+                                    placeholder="KV-DEMO-2048"
+                                    autocomplete="off"
+                                    maxlength="32"
+                                    required
+                                >
+
+                            </div>
+
+                            <button type="submit"
+                                    class="btn">
+                                TRACK SHIPMENT ↗
+                            </button>
+
+                        </form>
+
+                        <div class="samples"
+                             aria-label="Sample tracking numbers">
+
+                            <button type="button"
+                                    data-sample="KV-DEMO-2048">
+                                KV-DEMO-2048
+                            </button>
+
+                            <button type="button"
+                                    data-sample="KV-DEMO-3095">
+                                KV-DEMO-3095
+                            </button>
+
+                            <button type="button"
+                                    data-sample="KV-DEMO-7712">
+                                KV-DEMO-7712
+                            </button>
+
+                        </div>
+
+                        <p class="demo-note">
+                            Demo only · No real carrier connection
+                        </p>
+
+                    </div>
+
+                    <div class="track-result"
+                         id="trackingResult"
+                         role="status"
+                         aria-live="polite"
+                         data-mx-reveal>
+
+                        <div class="empty-state">
+
+                            <span>↗</span>
+
+                            <h3>READY TO TRACK.</h3>
+
+                            <p>
+                                Select a demo reference to view
+                                the shipment journey.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="tracking-stages"
+                     data-mx-reveal>
+
+                    <article>
+                        <span>01 / ORIGIN</span>
+                        <h3>Shipment registered</h3>
+                        <p>
+                            The journey begins with a booking.
+                        </p>
+                    </article>
+
+                    <article>
+                        <span>02 / MOVEMENT</span>
+                        <h3>Freight in transit</h3>
+                        <p>
+                            Milestones show progress along
+                            the route.
+                        </p>
+                    </article>
+
+                    <article>
+                        <span>03 / DESTINATION</span>
+                        <h3>Delivery completed</h3>
+                        <p>
+                            The shipment reaches
+                            its final stage.
+                        </p>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="section">
+
+            <div class="wrap">
+
+                <div class="section-top"
+                     data-mx-reveal>
+
+                    <div>
+
+                        <span class="eyebrow blue">
+                            02 / THE BIG PICTURE
+                        </span>
+
+                        <h2 class="display">
+                            EVERY STEP.<br>
+                            <span class="blue">CLEARLY.</span>
+                        </h2>
+
+                    </div>
+
+                    <p>
+                        A simple tracking experience gives
+                        an overview of the route and milestones.
+                    </p>
+
+                </div>
+
+                <div class="stats">
+
+                    <article class="stat" data-mx-reveal>
+                        <div class="stat-num">
+                            01<span>.</span>
+                        </div>
+                        <p>Origin and destination</p>
+                    </article>
+
+                    <article class="stat" data-mx-reveal>
+                        <div class="stat-num">
+                            02<span>.</span>
+                        </div>
+                        <p>Current shipment status</p>
+                    </article>
+
+                    <article class="stat" data-mx-reveal>
+                        <div class="stat-num">
+                            03<span>.</span>
+                        </div>
+                        <p>Shipment event history</p>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="mx-cta">
+
+            <div class="wrap mx-cta__inner">
+
+                <div data-mx-reveal>
+
+                    <span class="mx-kicker">
+                        YOUR NEXT DESTINATION
+                    </span>
+
+                    <h2>
+                        KEEP<br>
+                        MOVING.
+                    </h2>
+
+                </div>
+
+                <a href="services.html">
+                    EXPLORE SERVICES ↗
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+
+        <div class="wrap">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+
+                    <a class="footer-logo" href="index.html">
+                        KV<span>.</span>
+                    </a>
+
+                    <p>
+                        International freight and logistics.
+                        A fictional brand concept created
+                        for a design portfolio.
+                    </p>
+
+                </div>
+
+                <nav class="footer-col"
+                     aria-label="Footer pages">
+
+                    <h3>EXPLORE</h3>
+
+                    <a href="index.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="about.html">About</a>
+                    <a href="industries.html">Industries</a>
+                    <a href="tracking.html">Tracking</a>
+                    <a href="contact.html">Contact</a>
+
+                </nav>
+
+                <nav class="footer-col"
+                     aria-label="Freight services">
+
+                    <h3>FREIGHT</h3>
+
+                    <a href="services.html#road">Road freight</a>
+                    <a href="services.html#air">Air freight</a>
+                    <a href="services.html#ocean">Ocean freight</a>
+                    <a href="services.html#project">Project cargo</a>
+
+                </nav>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <span>
+                    © <span data-year>2026</span>
+                    KV FREIGHT GROUP
+                </span>
+
+                <span>
+                    FICTIONAL COMPANY · DEMONSTRATION WEBSITE
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>

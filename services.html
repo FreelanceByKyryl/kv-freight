@@ -1,0 +1,1242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Freight and logistics services by KV Freight Group. A fictional logistics website concept.">
+    <title>Services — KV Freight Group</title>
+
+    <style>
+        @font-face {
+            font-family: KVAnton;
+            src: url("assets/fonts/anton-latin-400-normal.woff2") format("woff2");
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: KVArchivo;
+            src: url("assets/fonts/archivo-latin-wght-normal.woff2") format("woff2");
+            font-weight: 100 900;
+            font-display: swap;
+        }
+
+        :root {
+            --ink: #111111;
+            --blue: #2f63ff;
+            --light: #f5f5f3;
+            --gray: #777777;
+            --header-h: 76px;
+            --pad: clamp(20px, 5vw, 90px);
+            --display: KVAnton, Impact, "Arial Narrow", sans-serif;
+            --body: KVArchivo, Arial, sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 160px;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: #ffffff;
+            font-family: var(--body);
+            overflow-x: clip;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        h1, h2, h3, p {
+            margin: 0;
+        }
+
+        .kv-wrap {
+            max-width: 1780px;
+            padding-inline: var(--pad);
+            margin-inline: auto;
+        }
+
+        .kv-display {
+            font-family: var(--display);
+            font-weight: 400;
+            letter-spacing: -.025em;
+            line-height: .93;
+            text-transform: uppercase;
+        }
+
+        .kv-blue {
+            color: var(--blue);
+        }
+
+        .kv-eyebrow {
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+        }
+
+        .kv-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            height: var(--header-h);
+            padding-inline: var(--pad);
+            border-bottom: 1px solid #e7e7e7;
+            background: rgba(255,255,255,.97);
+            backdrop-filter: blur(16px);
+        }
+
+        .kv-logo {
+            flex-shrink: 0;
+            font: 400 38px/1 var(--display);
+        }
+
+        .kv-logo span {
+            color: var(--blue);
+        }
+
+        .kv-header-nav {
+            display: flex;
+            align-items: center;
+            gap: clamp(15px,2vw,36px);
+            margin-left: auto;
+        }
+
+        .kv-header-nav a {
+            position: relative;
+            padding-block: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: color .25s;
+        }
+
+        .kv-header-nav a:hover,
+        .kv-header-nav a.active {
+            color: var(--blue);
+        }
+
+        .kv-header-nav a.active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 3px;
+            height: 2px;
+            background: var(--blue);
+        }
+
+        .kv-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 17px 25px;
+            border: 1px solid var(--ink);
+            border-radius: 50px;
+            background: var(--ink);
+            color: white;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: background .3s, border-color .3s, transform .3s;
+        }
+
+        .kv-button:hover {
+            transform: translateY(-3px);
+            background: var(--blue);
+            border-color: var(--blue);
+        }
+
+        .kv-button-outline {
+            background: transparent;
+            color: var(--ink);
+        }
+
+        .kv-button-outline:hover {
+            color: white;
+        }
+
+        .kv-mobile-menu {
+            display: none;
+            position: relative;
+        }
+
+        .kv-mobile-menu summary {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border: 1px solid #dedede;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 800;
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .kv-mobile-menu summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .kv-mobile-menu-panel {
+            position: absolute;
+            top: calc(100% + 14px);
+            right: 0;
+            display: grid;
+            gap: 4px;
+            min-width: 220px;
+            padding: 10px;
+            border: 1px solid #e4e4e4;
+            background: white;
+            box-shadow: 0 22px 55px rgba(0,0,0,.14);
+        }
+
+        .kv-mobile-menu-panel a {
+            padding: 13px 15px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .kv-mobile-menu-panel a:hover {
+            background: #f0f3ff;
+            color: var(--blue);
+        }
+
+        .kv-hero {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            min-height: min(760px, 80vh);
+            background: var(--light);
+        }
+
+        .kv-hero-copy {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 85px clamp(25px,5vw,90px);
+        }
+
+        .kv-hero-copy h1 {
+            margin: 40px 0;
+            font-size: clamp(80px,9.4vw,170px);
+        }
+
+        .kv-hero-copy > p {
+            max-width: 530px;
+            color: #666;
+            font-size: clamp(16px,1.35vw,21px);
+            line-height: 1.6;
+        }
+
+        .kv-hero-link {
+            margin-top: 38px;
+        }
+
+        .kv-hero-photo {
+            position: relative;
+            min-height: 500px;
+            overflow: hidden;
+            background: linear-gradient(135deg,#151923,#203a78);
+        }
+
+        .kv-hero-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+            filter: brightness(.85);
+        }
+
+        .kv-photo-label {
+            position: absolute;
+            bottom: 35px;
+            left: 35px;
+            z-index: 2;
+            padding: 12px 16px;
+            background: var(--blue);
+            color: white;
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .12em;
+        }
+
+        .kv-category-nav {
+            position: sticky;
+            top: var(--header-h);
+            z-index: 90;
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            padding: 16px var(--pad);
+            overflow-x: auto;
+            background: rgba(255,255,255,.98);
+            border-bottom: 1px solid #e5e5e5;
+            box-shadow: 0 8px 25px rgba(0,0,0,.04);
+            scrollbar-width: none;
+        }
+
+        .kv-category-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .kv-category-nav a {
+            flex-shrink: 0;
+            padding: 12px 19px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+            transition: background .25s,color .25s;
+        }
+
+        .kv-category-nav a:hover,
+        .kv-category-nav a.active {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #fff;
+        }
+
+        .kv-service {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(35px,6vw,105px);
+            align-items: center;
+            padding-block: clamp(75px,10vw,150px);
+            border-bottom: 1px solid #dedede;
+            scroll-margin-top: calc(var(--header-h) + 110px);
+        }
+
+        .kv-service:nth-child(even) .kv-service-image {
+            order: -1;
+        }
+
+        .kv-service-number {
+            display: inline-block;
+            margin-bottom: 28px;
+            color: var(--blue);
+        }
+
+        .kv-service h2 {
+            font-size: clamp(57px,7.4vw,125px);
+        }
+
+        .kv-service-description {
+            max-width: 570px;
+            margin-top: 27px;
+            color: #777;
+            font-size: clamp(15px,1.25vw,18px);
+            line-height: 1.75;
+        }
+
+        .kv-service-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 19px;
+            margin: 35px 0 42px;
+        }
+
+        .kv-service-features span {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .kv-service-features span::before {
+            content: "↗";
+            color: var(--blue);
+            font-weight: 900;
+        }
+
+        .kv-service-image {
+            position: relative;
+            aspect-ratio: 4 / 4.5;
+            overflow: hidden;
+            background: linear-gradient(135deg,#202635,#283e79);
+        }
+
+        .kv-service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .85s cubic-bezier(.2,.7,.2,1);
+        }
+
+        .kv-service-image:hover img {
+            transform: scale(1.065);
+        }
+
+        .kv-service-image::after {
+            content: "";
+            position: absolute;
+            inset: 55% 0 0;
+            background: linear-gradient(transparent,rgba(0,0,0,.4));
+            pointer-events: none;
+        }
+
+        .kv-service-image-label {
+            position: absolute;
+            z-index: 2;
+            bottom: 25px;
+            left: 25px;
+            color: white;
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+        }
+
+        .kv-section-title {
+            font-size: clamp(52px,8vw,140px);
+        }
+
+        .kv-process {
+            padding-block: 120px;
+            background: #111;
+            color: white;
+        }
+
+        .kv-process-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 35px;
+            margin-bottom: 55px;
+        }
+
+        .kv-process-header p {
+            max-width: 370px;
+            color: #aaa;
+            line-height: 1.7;
+        }
+
+        .kv-process-grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 1px;
+            background: #353535;
+        }
+
+        .kv-process-item {
+            padding: 32px;
+            min-height: 270px;
+            background: #191919;
+        }
+
+        .kv-process-item > span {
+            color: #8aa4ff;
+        }
+
+        .kv-process-item h3 {
+            margin-top: 65px;
+            font-size: 23px;
+        }
+
+        .kv-process-item p {
+            margin-top: 15px;
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .kv-cta {
+            padding: 110px 0;
+            background: var(--blue);
+            color: white;
+        }
+
+        .kv-cta-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .kv-cta h2 {
+            margin-top: 27px;
+            font-size: clamp(70px,10vw,180px);
+        }
+
+        .kv-cta .kv-button {
+            background: white;
+            border-color: white;
+            color: #111;
+        }
+
+        .kv-footer {
+            background: #e9e9e9;
+            padding-block: 75px 30px;
+        }
+
+        .kv-footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 45px;
+        }
+
+        .kv-footer-brand {
+            max-width: 370px;
+        }
+
+        .kv-footer-brand > a {
+            font: 400 90px/1 var(--display);
+        }
+
+        .kv-footer-brand > a span {
+            color: var(--blue);
+        }
+
+        .kv-footer-brand p {
+            margin-top: 17px;
+            color: #777;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .kv-footer-col h3 {
+            margin-bottom: 23px;
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+        }
+
+        .kv-footer-col a {
+            display: block;
+            margin-bottom: 14px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .kv-footer-col a:hover {
+            color: var(--blue);
+        }
+
+        .kv-footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding-top: 25px;
+            margin-top: 65px;
+            border-top: 1px solid #ccc;
+            color: #777;
+            font-size: 12px;
+        }
+
+        @media(max-width:1100px) {
+            .kv-header-nav {
+                display: none;
+            }
+
+            .kv-mobile-menu {
+                display: block;
+                margin-left: auto;
+            }
+
+            .kv-service {
+                gap: 40px;
+            }
+
+            .kv-service h2 {
+                font-size: clamp(55px,7vw,90px);
+            }
+        }
+
+        @media(max-width:780px) {
+            :root {
+                --header-h: 68px;
+            }
+
+            .kv-header {
+                gap: 15px;
+            }
+
+            .kv-header .kv-button {
+                display: none;
+            }
+
+            .kv-hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .kv-hero-copy {
+                padding: 80px var(--pad);
+            }
+
+            .kv-hero-copy h1 {
+                margin: 30px 0;
+                font-size: clamp(72px,13vw,120px);
+            }
+
+            .kv-hero-photo {
+                min-height: 380px;
+            }
+
+            .kv-service {
+                grid-template-columns: 1fr;
+                padding-block: 70px;
+            }
+
+            .kv-service:nth-child(even) .kv-service-image {
+                order: 0;
+            }
+
+            .kv-service-image {
+                aspect-ratio: 16 / 11;
+            }
+
+            .kv-service h2 {
+                font-size: clamp(60px,11vw,95px);
+            }
+
+            .kv-process-header {
+                display: block;
+            }
+
+            .kv-process-header p {
+                margin-top: 25px;
+            }
+
+            .kv-process-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .kv-process {
+                padding-block: 80px;
+            }
+
+            .kv-footer-top {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .kv-footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media(max-width:480px) {
+            .kv-service-features {
+                grid-template-columns: 1fr;
+            }
+
+            .kv-category-nav {
+                padding-block: 12px;
+            }
+
+            .kv-category-nav a {
+                padding: 10px 15px;
+                font-size: 11px;
+            }
+
+            .kv-process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kv-process-item {
+                min-height: 210px;
+            }
+
+            .kv-process-item h3 {
+                margin-top: 35px;
+            }
+
+            .kv-footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .kv-footer-brand {
+                grid-column: auto;
+            }
+
+            .kv-footer-bottom {
+                flex-direction: column;
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="css/home-media.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    
+    <script src="js/mobile.js" defer></script>
+</head>
+
+<body>
+
+    <header class="kv-header">
+
+        <a href="index.html" class="kv-logo" aria-label="KV Freight Group Home">
+            KV<span>.</span>
+        </a>
+
+        <nav class="kv-header-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="services.html" class="active" aria-current="page">Services</a>
+            <a href="about.html">About</a>
+            <a href="industries.html">Industries</a>
+            <a href="tracking.html">Tracking</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <a href="contact.html" class="kv-button">
+            Get a quote ↗
+        </a>
+
+        <details class="kv-mobile-menu">
+            <summary>MENU ☰</summary>
+
+            <nav class="kv-mobile-menu-panel" aria-label="Mobile navigation">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="industries.html">Industries</a>
+                <a href="tracking.html">Tracking</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </details>
+
+    </header>
+
+    <main>
+
+        <section class="kv-hero">
+
+            <div class="kv-hero-copy">
+                <span class="kv-eyebrow">01 / FREIGHT SERVICES</span>
+
+                <h1 class="kv-display">
+                    EVERY<br>
+                    MILE.<br>
+                    <span class="kv-blue">COVERED.</span>
+                </h1>
+
+                <p>
+                    From the first mile to the final destination.
+                    Explore six freight and logistics solutions,
+                    designed around the movement of your cargo.
+                </p>
+
+                <a href="#road" class="kv-button kv-hero-link">
+                    Explore services ↓
+                </a>
+            </div>
+
+            <div class="kv-hero-photo">
+
+                <img
+                    src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1400&q=85"
+                    alt="Container ship and international freight"
+                    onerror="this.hidden=true"
+                >
+
+                <span class="kv-photo-label">
+                    INTERNATIONAL FREIGHT / 001
+                </span>
+
+            </div>
+
+        </section>
+
+        <nav class="kv-category-nav" aria-label="Freight services">
+
+            <a href="#road" class="active">01 Road</a>
+            <a href="#air">02 Air</a>
+            <a href="#ocean">03 Ocean</a>
+            <a href="#customs">04 Customs</a>
+            <a href="#warehousing">05 Warehousing</a>
+            <a href="#project">06 Project Cargo</a>
+
+        </nav>
+
+        <div class="kv-wrap">
+
+            <section class="kv-service" id="road">
+
+                <div class="kv-service-copy">
+                    <span class="kv-eyebrow kv-service-number">
+                        01 / ROAD FREIGHT
+                    </span>
+
+                    <h2 class="kv-display">
+                        MOVING<br>
+                        <span class="kv-blue">OVERLAND.</span>
+                    </h2>
+
+                    <p class="kv-service-description">
+                        From single pallets to full truckloads,
+                        road transport creates flexible connections
+                        between cities, businesses and international markets.
+                    </p>
+
+                    <div class="kv-service-features">
+                        <span>Full truckload (FTL)</span>
+                        <span>Less-than-truckload (LTL)</span>
+                        <span>Cross-border transport</span>
+                        <span>Distribution planning</span>
+                    </div>
+
+                    <a href="contact.html" class="kv-button kv-button-outline">
+                        REQUEST ROAD FREIGHT ↗
+                    </a>
+                </div>
+
+                <figure class="kv-service-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1400&q=85"
+                        alt="Freight truck on a highway"
+                        loading="lazy"
+                        onerror="this.hidden=true"
+                    >
+
+                    <span class="kv-service-image-label">
+                        KV / OVERLAND TRANSPORT
+                    </span>
+                </figure>
+
+            </section>
+
+            <section class="kv-service" id="air">
+
+                <div class="kv-service-copy">
+                    <span class="kv-eyebrow kv-service-number">
+                        02 / AIR FREIGHT
+                    </span>
+
+                    <h2 class="kv-display">
+                        SPEED<br>
+                        <span class="kv-blue">MATTERS.</span>
+                    </h2>
+
+                    <p class="kv-service-description">
+                        When timing matters, air freight connects
+                        international markets through faster transport
+                        options and carefully coordinated cargo movement.
+                    </p>
+
+                    <div class="kv-service-features">
+                        <span>Express shipments</span>
+                        <span>Air cargo connections</span>
+                        <span>Time-sensitive logistics</span>
+                        <span>Transport coordination</span>
+                    </div>
+
+                    <a href="contact.html" class="kv-button kv-button-outline">
+                        REQUEST AIR FREIGHT ↗
+                    </a>
+                </div>
+
+                <figure class="kv-service-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1400&q=85"
+                        alt="Aircraft in flight"
+                        loading="lazy"
+                        onerror="this.hidden=true"
+                    >
+
+                    <span class="kv-service-image-label">
+                        KV / GLOBAL AIR TRANSPORT
+                    </span>
+                </figure>
+
+            </section>
+
+            <section class="kv-service" id="ocean">
+
+                <div class="kv-service-copy">
+                    <span class="kv-eyebrow kv-service-number">
+                        03 / OCEAN FREIGHT
+                    </span>
+
+                    <h2 class="kv-display">
+                        ACROSS<br>
+                        <span class="kv-blue">OCEANS.</span>
+                    </h2>
+
+                    <p class="kv-service-description">
+                        Container shipping connects global trade lanes.
+                        Ocean freight provides scalable options
+                        for businesses moving goods across continents.
+                    </p>
+
+                    <div class="kv-service-features">
+                        <span>Full container load (FCL)</span>
+                        <span>Less-than-container load (LCL)</span>
+                        <span>Port-to-port shipping</span>
+                        <span>Multimodal connections</span>
+                    </div>
+
+                    <a href="contact.html" class="kv-button kv-button-outline">
+                        REQUEST OCEAN FREIGHT ↗
+                    </a>
+                </div>
+
+                <figure class="kv-service-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1400&q=85"
+                        alt="Cargo ship carrying containers"
+                        loading="lazy"
+                        onerror="this.hidden=true"
+                    >
+
+                    <span class="kv-service-image-label">
+                        KV / INTERNATIONAL SHIPPING
+                    </span>
+                </figure>
+
+            </section>
+
+            <section class="kv-service" id="customs">
+
+                <div class="kv-service-copy">
+                    <span class="kv-eyebrow kv-service-number">
+                        04 / CUSTOMS BROKERAGE
+                    </span>
+
+                    <h2 class="kv-display">
+                        CLEAR<br>
+                        <span class="kv-blue">THE WAY.</span>
+                    </h2>
+
+                    <p class="kv-service-description">
+                        International trade requires clear documentation,
+                        classification and border procedures.
+                        Organised customs support keeps every stage
+                        easier to understand.
+                    </p>
+
+                    <div class="kv-service-features">
+                        <span>Document preparation</span>
+                        <span>Import & export</span>
+                        <span>Classification support</span>
+                        <span>Customs coordination</span>
+                    </div>
+
+                    <a href="contact.html" class="kv-button kv-button-outline">
+                        CUSTOMS ENQUIRY ↗
+                    </a>
+                </div>
+
+                <figure class="kv-service-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1494412519320-aa613dfb7738?auto=format&fit=crop&w=1400&q=85"
+                        alt="Containers at an international freight port"
+                        loading="lazy"
+                        onerror="this.hidden=true"
+                    >
+
+                    <span class="kv-service-image-label">
+                        KV / BORDER OPERATIONS
+                    </span>
+                </figure>
+
+            </section>
+
+            <section class="kv-service" id="warehousing">
+
+                <div class="kv-service-copy">
+                    <span class="kv-eyebrow kv-service-number">
+                        05 / WAREHOUSING & 3PL
+                    </span>
+
+                    <h2 class="kv-display">
+                        SPACE<br>
+                        TO <span class="kv-blue">GROW.</span>
+                    </h2>
+
+                    <p class="kv-service-description">
+                        The journey does not stop when cargo arrives.
+                        Warehousing, storage and fulfilment
+                        connect transportation with customer delivery.
+                    </p>
+
+                    <div class="kv-service-features">
+                        <span>Warehouse operations</span>
+                        <span>Inventory coordination</span>
+                        <span>Pick and pack</span>
+                        <span>Distribution support</span>
+                    </div>
+
+                    <a href="contact.html" class="kv-button kv-button-outline">
+                        WAREHOUSING ENQUIRY ↗
+                    </a>
+                </div>
+
+                <figure class="kv-service-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=85"
+                        alt="Warehouse and storage operations"
+                        loading="lazy"
+                        onerror="this.hidden=true"
+                    >
+
+                    <span class="kv-service-image-label">
+                        KV / STORAGE & FULFILMENT
+                    </span>
+                </figure>
+
+            </section>
+
+            <section class="kv-service" id="project">
+
+                <div class="kv-service-copy">
+                    <span class="kv-eyebrow kv-service-number">
+                        06 / PROJECT CARGO
+                    </span>
+
+                    <h2 class="kv-display">
+                        BIGGER<br>
+                        <span class="kv-blue">THINKING.</span>
+                    </h2>
+
+                    <p class="kv-service-description">
+                        Oversized and complex shipments need careful
+                        logistics planning. Project cargo solutions
+                        focus on challenging routes, equipment
+                        and delivery requirements.
+                    </p>
+
+                    <div class="kv-service-features">
+                        <span>Oversized cargo</span>
+                        <span>Special transport planning</span>
+                        <span>Route assessments</span>
+                        <span>Equipment coordination</span>
+                    </div>
+
+                    <a href="contact.html" class="kv-button kv-button-outline">
+                        PROJECT CARGO ENQUIRY ↗
+                    </a>
+                </div>
+
+                <figure class="kv-service-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85"
+                        alt="Heavy machinery on a construction project"
+                        loading="lazy"
+                        onerror="this.hidden=true"
+                    >
+
+                    <span class="kv-service-image-label">
+                        KV / COMPLEX LOGISTICS
+                    </span>
+                </figure>
+
+            </section>
+
+        </div>
+
+        <section class="kv-process">
+
+            <div class="kv-wrap">
+
+                <div class="kv-process-header">
+
+                    <div>
+                        <span class="kv-eyebrow">OUR APPROACH</span>
+
+                        <h2 class="kv-display kv-section-title" style="margin-top:30px">
+                            HOW IT<br>
+                            <span class="kv-blue">WORKS.</span>
+                        </h2>
+                    </div>
+
+                    <p>
+                        A straightforward journey from your first
+                        enquiry to the final destination.
+                    </p>
+
+                </div>
+
+                <div class="kv-process-grid">
+
+                    <div class="kv-process-item">
+                        <span class="kv-eyebrow">01 / REQUEST</span>
+                        <h3>Tell us your needs.</h3>
+                        <p>Share the cargo details, route and timing.</p>
+                    </div>
+
+                    <div class="kv-process-item">
+                        <span class="kv-eyebrow">02 / PLAN</span>
+                        <h3>Build the route.</h3>
+                        <p>Explore the right transport approach.</p>
+                    </div>
+
+                    <div class="kv-process-item">
+                        <span class="kv-eyebrow">03 / MOVE</span>
+                        <h3>Transport the cargo.</h3>
+                        <p>Follow a coordinated logistics process.</p>
+                    </div>
+
+                    <div class="kv-process-item">
+                        <span class="kv-eyebrow">04 / COMPLETE</span>
+                        <h3>Reach the destination.</h3>
+                        <p>Complete the final delivery stage.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="kv-cta">
+
+            <div class="kv-wrap kv-cta-grid">
+
+                <div>
+                    <span class="kv-eyebrow">
+                        YOUR NEXT SHIPMENT
+                    </span>
+
+                    <h2 class="kv-display">
+                        LET'S GET<br>
+                        MOVING.
+                    </h2>
+                </div>
+
+                <a href="contact.html" class="kv-button">
+                    GET IN TOUCH ↗
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="kv-footer">
+
+        <div class="kv-wrap">
+
+            <div class="kv-footer-top">
+
+                <div class="kv-footer-brand">
+                    <a href="index.html">KV<span>.</span></a>
+
+                    <p>
+                        International freight and logistics.
+                        A fictional brand created as a
+                        website design concept.
+                    </p>
+                </div>
+
+                <div class="kv-footer-col">
+                    <h3>Pages</h3>
+
+                    <a href="index.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="about.html">About</a>
+                    <a href="industries.html">Industries</a>
+                    <a href="tracking.html">Tracking</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+
+                <div class="kv-footer-col">
+                    <h3>Services</h3>
+
+                    <a href="#road">Road Freight</a>
+                    <a href="#air">Air Freight</a>
+                    <a href="#ocean">Ocean Freight</a>
+                    <a href="#customs">Customs</a>
+                    <a href="#warehousing">Warehousing</a>
+                    <a href="#project">Project Cargo</a>
+                </div>
+
+            </div>
+
+            <div class="kv-footer-bottom">
+                <span>© 2026 KV Freight Group</span>
+                <span>Fictional brand — demonstration website</span>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll(".kv-service");
+        const tabs = document.querySelectorAll(".kv-category-nav a");
+
+        if ("IntersectionObserver" in window) {
+            const observer = new IntersectionObserver(
+                entries => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+
+                        tabs.forEach(tab => {
+                            const active =
+                                tab.getAttribute("href") ===
+                                "#" + entry.target.id;
+
+                            tab.classList.toggle("active", active);
+
+                            if (active) {
+                                tab.setAttribute("aria-current", "location");
+                            } else {
+                                tab.removeAttribute("aria-current");
+                            }
+                        });
+                    });
+                },
+                {
+                    rootMargin: "-160px 0px -55% 0px",
+                    threshold: 0
+                }
+            );
+
+            sections.forEach(section => observer.observe(section));
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                tabs.forEach(item => item.classList.remove("active"));
+                tab.classList.add("active");
+            });
+        });
+    </script>
+
+</body>
+</html>
